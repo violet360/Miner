@@ -36,7 +36,6 @@ package read()
     string line1;
     // Open an existing file
     fin.open("mempool.csv");
-    // vector<vector<ll>>trackParent;
     unordered_map<ll, vector<ll>>unDiGraph;
     unordered_map<ll, vector<ll>>graph;
     unordered_map<ll, string>numToHash;
@@ -51,8 +50,6 @@ package read()
                     i++;
                     continue;
                 }
-                // cout<<i<<"\n";
-                // cout<<line<<"\n";
                 stringstream  ss(line);
                 string str;
                 vector<string>columns;
@@ -200,7 +197,7 @@ bool cmp(struct txSet a, struct txSet b)
 }
 
 
-pair<ld, vector<ll>> fractionalKnapsack(ll W, vector<txSet>&t)
+pair<ld, vector<ll>> generateBlock(ll W, vector<txSet>&t)
 {
     ll curWeight = 0; // Current weight in knapsack
     ld finalvalue = 0.0; // Result (value in Knapsack)
@@ -251,7 +248,7 @@ int main()
     vector<vector<ll>>collection = collectTopoSortedComponent(collectComponents, diGraph); // same as vector collectComponents but each compoenent is topologically sorted
     vector<txSet>transactionSets = getTransactionSets(collection, weight, fee); // list of {weight, fees, idx} of each component where idx is the index of the component in collection
     sort(transactionSets.begin(), transactionSets.end(), cmp); // list components sorted by fees/weight 
-    pair<ld, vector<ll>>validBlockInfo = fractionalKnapsack(ll(4000000), transactionSets); // greedily select components for the the block on the basis of the ratio, knida like fractional knapsack
+    pair<ld, vector<ll>>validBlockInfo = generateBlock(ll(4000000), transactionSets); // greedily select components for the the block on the basis of the ratio, knida like fractional knapsack
     vector<ll>aValidBlock = validBlockInfo.second; // if 'e 'is any element in aValid block, then transactionSets[u] gives [idx, weight, fee] of that component where idx is the index in "collection"
     //weight and fee are the combined weight and fee of the component collection[idx] 
     ld maxFees = validBlockInfo.first;
@@ -264,6 +261,6 @@ ll ansW = 0;
             ansW+=weight[u];
         }
     }
-    cout<<ansW<<"\n";
+    // cout<<ansW<<"\n";
 	return 0;
 }

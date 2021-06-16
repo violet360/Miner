@@ -1,3 +1,25 @@
+/*
+* author : Shashank Karmakar
+* some useful links to take reference
+* https://www.geeksforgeeks.org/topological-sorting/
+* https://cp-algorithms.com/graph/topological-sort.html
+
+* summary of my approach:
+* seems like a 0-1 knapsack with some differences 
+* for every elemnt you consider to put in the kna[sack check whether its immediate parent is in it 
+* but in this dataset if knapsack is applied, space and time complexity will skyrocket, clearly not applicable for practical purposes
+* a more feasible approach is to not get stuck with the most optimal answer, instead going for the good enough answer
+* view the mempool as a forest of directed graphs
+* size of each component ranging from 1 to some positive integer
+* topologically sort each component
+* each component will have a total fee and weight, sort all components on the basis of their fees and weight ratio (fees/weight) in descending 
+* greedily pick the components from the largest ratio to the smallest as long as the threshold weight is not crossed 
+* when threshold is crossed try to fill in the remaining gap by smaller ratios from the end
+* and at last you will get a good enough topologically sorted block
+*/
+
+
+
 #include <bits/stdc++.h>
 typedef long long ll;
 typedef long double ld;
@@ -28,9 +50,10 @@ struct txSet {
        this->idx = idx;
     }
 };
-
-package read()
-{
+/*
+reads the csv file and wraps up data in graphs and hashtables
+*/
+package read() {
     ifstream fin;
     string line;
     string line1;
@@ -102,20 +125,23 @@ package read()
 
     return {unDiGraph, trackParent, graph, numToHash, hashToNum, weight, fee};
 }
-
-void topoSortUtil(ll parent, unordered_map<ll, vector<ll>>&adj, unordered_map<ll, bool>&visited, stack<ll>&s)
-{
-	visited[parent] = true;
-	for(ll child:adj[parent])
+/*
+*utility function to topologically sort a graph
+*@param current -> current node
+*@param adj-> adjacency matrix
+*@param visited[] -> hashtable to track visited and unvisited nodes
+*/
+void topoSortUtil(ll current, unordered_map<ll, vector<ll>>&adj, unordered_map<ll, bool>&visited, stack<ll>&s) {
+	visited[current] = true;
+	for(ll child:adj[current])
 	{
 		if(!visited[child])
             topoSortUtil(child, adj, visited, s);
 	}
-	s.push(parent);
+	s.push(current);
 }
 
-stack<ll> topoSort(vector<ll>&nodes, unordered_map<ll, vector<ll>>&adj)
-{
+stack<ll> topoSort(vector<ll>&nodes, unordered_map<ll, vector<ll>>&adj) {
     ll n = nodes.size(); //5214 nodes
     unordered_map<ll, bool>visited;
 
@@ -132,8 +158,7 @@ stack<ll> topoSort(vector<ll>&nodes, unordered_map<ll, vector<ll>>&adj)
     return s;
 }
 
-vector<ll> getOrder(vector<ll>&nodes, unordered_map<ll, vector<ll>>&adj)
-{
+vector<ll> getOrder(vector<ll>&nodes, unordered_map<ll, vector<ll>>&adj) {
     stack<ll>s = topoSort(nodes, adj);
     vector<ll>topOrder;
     while(!s.empty()) {
@@ -189,16 +214,14 @@ vector<txSet> getTransactionSets(vector<vector<ll>>&vec, unordered_map<ll, ll>&w
     return transactionSets;
 }
 
-bool cmp(struct txSet a, struct txSet b)
-{
+bool cmp(struct txSet a, struct txSet b) {
     ld r1 = (ld)a.fees / (ld)a.weight;
     ld r2 = (ld)b.fees / (ld)b.weight;
     return r1 > r2;
 }
 
 
-pair<ld, vector<ll>> generateBlock(ll W, vector<txSet>&t)
-{
+pair<ld, vector<ll>> generateBlock(ll W, vector<txSet>&t) {
     ll curWeight = 0; // Current weight in knapsack
     ld finalvalue = 0.0; // Result (value in Knapsack)
     ll n = t.size();
@@ -228,8 +251,7 @@ pair<ld, vector<ll>> generateBlock(ll W, vector<txSet>&t)
     return {finalvalue, ValidTransactions};
 }
 
-int main() 
-{
+int main() {
 	FAST_CODE;
     #ifndef ONLINE_JUDGE
 		freopen("block.txt","w", stdout);
@@ -252,15 +274,12 @@ int main()
     vector<ll>aValidBlock = validBlockInfo.second; // if 'e 'is any element in aValid block, then transactionSets[u] gives [idx, weight, fee] of that component where idx is the index in "collection"
     //weight and fee are the combined weight and fee of the component collection[idx] 
     ld maxFees = validBlockInfo.first;
-    ll ansW = 0;
 
     for(ll u: aValidBlock) {
         ll temp  = transactionSets[u].idx;
         for(ll u : collection[temp]) {
             cout<<numToHash[u]<<"\n";
-            ansW+=weight[u];
         }
     }
-    // cout<<ansW<<"\n";
 	return 0;
 }

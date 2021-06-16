@@ -236,7 +236,7 @@ int main()
 	FAST_CODE;
     #ifndef ONLINE_JUDGE
 		freopen("block.txt","w", stdout);
-	#endif
+    #endif
     package p;
     p = read(); //this reads the csv file and arranges the represents the dtaa in important data structures
     unordered_map<ll, vector<ll>>unDiGraph = p.unDiGraph; //unidirectional graph adjacency list of the mempool elements
@@ -255,7 +255,7 @@ int main()
     vector<ll>aValidBlock = validBlockInfo.second; // if 'e 'is any element in aValid block, then transactionSets[u] gives [idx, weight, fee] of that component where idx is the index in "collection"
     //weight and fee are the combined weight and fee of the component collection[idx] 
     ld maxFees = validBlockInfo.first;
-ll ansW = 0;
+    ll ansW = 0;
 
     for(ll u: aValidBlock) {
         ll temp  = transactionSets[u].idx;

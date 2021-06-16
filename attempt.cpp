@@ -36,7 +36,6 @@ package read()
     string line1;
     // Open an existing file
     fin.open("mempool.csv");
-    // vector<vector<ll>>trackParent;
     unordered_map<ll, vector<ll>>unDiGraph;
     unordered_map<ll, vector<ll>>graph;
     unordered_map<ll, string>numToHash;
@@ -51,8 +50,6 @@ package read()
                     i++;
                     continue;
                 }
-                // cout<<i<<"\n";
-                // cout<<line<<"\n";
                 stringstream  ss(line);
                 string str;
                 vector<string>columns;

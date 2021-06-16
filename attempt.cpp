@@ -238,7 +238,7 @@ int main()
 		freopen("block.txt","w", stdout);
     #endif
     package p;
-    p = read(); //this reads the csv file and arranges the represents the dtaa in important data structures
+    p = read(); //this reads the csv file and arranges the represents the data in important data structures, graph and hashtable here
     unordered_map<ll, vector<ll>>unDiGraph = p.unDiGraph; //unidirectional graph adjacency list of the mempool elements
     unordered_map<ll, vector<ll>>diGraph = p.diGraph; //directional graph adjacency list
     unordered_map<ll, string>numToHash = p.numToHash;//if x is a txId in ith line then it's hashToNum value is i, through the solution the txId is represented by the line in which it resides

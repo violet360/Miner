@@ -150,8 +150,7 @@ stack<ll> topoSort(vector<ll>&nodes, unordered_map<ll, vector<ll>>&adj) {
     }
     stack<ll>s;
 
-	for(ll n : nodes) //we need to iterate till 5215 and n is 5214
-	{
+	for(ll n : nodes) { //we need to iterate till 5215 and n is 5214
 		if(!visited[n])
 			topoSortUtil(n, adj, visited, s);
 	}

@@ -252,15 +252,12 @@ int main()
     vector<ll>aValidBlock = validBlockInfo.second; // if 'e 'is any element in aValid block, then transactionSets[u] gives [idx, weight, fee] of that component where idx is the index in "collection"
     //weight and fee are the combined weight and fee of the component collection[idx] 
     ld maxFees = validBlockInfo.first;
-    ll ansW = 0;
 
     for(ll u: aValidBlock) {
         ll temp  = transactionSets[u].idx;
         for(ll u : collection[temp]) {
             cout<<numToHash[u]<<"\n";
-            ansW+=weight[u];
         }
     }
-    // cout<<ansW<<"\n";
 	return 0;
 }

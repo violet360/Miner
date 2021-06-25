@@ -28,7 +28,7 @@ in the knapsack, so we can check wheather it was included or not
 &emsp;&emsp;&emsp;&emsp;return 0; <br>
 &emsp;&emsp;allPresent = 1;<br>
 &emsp;&emsp;if(P<sub>i</sub>.empty): <br>
-&emsp;&emsp;&emsp;&emsp;return fees[i] + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added)
+&emsp;&emsp;&emsp;&emsp;return fees[i] + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added)<br>
 &emsp;&emsp;for p in P<sub>i</sub>:<br>
 &emsp;&emsp;&emsp;&emsp;allPresent *= added[p]<br>
 &emsp;&emsp;if(allPresent):<br>

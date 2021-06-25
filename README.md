@@ -23,19 +23,19 @@ let us try the knapsack approach
 * sort the mempool topologically first, since we will be moving from left to right and this will give us a surety that if we are at a transaction we have scanned it's parents
 in the knapsack, so we can check wheather it was included or not 
 * P<sub>i</sub> be a set of parents of ith transaction and added[] is a hashmap which tells whether an element is added in the knapsack or not
-* node(i, W<sub>curr</sub>) =
-    if basecase:
-        return 0;
-    allPresent = 1;
-    if(P<sub>i</sub>.empty):
-        return fees[i] + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added)
-    for p in P<sub>i</sub>:
-        allPresent *= added[p]
-    if(allPresent):
-        added[i] = true;
-        return max{fees<sub>i</sub> + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added), node(i+1, W<sub>curr</sub>, added)}
-    else if(not allPresent):
-        return node(i+1, W<sub>curr</sub>, added);
+* node(i, W<sub>curr</sub>) = <br>
+&nbsp;if basecase: <br>
+&nbsp;&nbsp;return 0; <br>
+&nbsp;allPresent = 1;<br>
+&nbsp;if(P<sub>i</sub>.empty): <br>
+&nbsp;&nbsp;return fees[i] + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added)
+&nbsp;for p in P<sub>i</sub>:<br>
+&nbsp;&nbsp;allPresent *= added[p]<br>
+&nbsp;if(allPresent):<br>
+&nbsp;&nbsp;added[i] = true;<br>
+&nbsp;&nbsp;return max{fees<sub>i</sub> + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added), node(i+1, W<sub>curr</sub>, added)}<br>
+&nbsp;else if(not allPresent):<br>
+&nbsp;&nbsp;return node(i+1, W<sub>curr</sub>, added);<br>
 * at every recursive call added is copied to the stack 
 * we cannot memoization won't help reduce it
 * so both space and time complexity will be in the order of 2<sup>n</sup> which ain't feasible

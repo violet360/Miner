@@ -3,19 +3,6 @@
 * some useful links to take reference
 * https://www.geeksforgeeks.org/topological-sorting/
 * https://cp-algorithms.com/graph/topological-sort.html
-
-* summary of my approach:
-* seems like a 0-1 knapsack with some differences 
-* for every elemnt you consider to put in the kna[sack check whether its immediate parent is in it 
-* but in this dataset if knapsack is applied, space and time complexity will skyrocket, clearly not applicable for practical purposes
-* a more feasible approach is to not get stuck with the most optimal answer, instead going for the good enough answer
-* view the mempool as a forest of directed graphs
-* size of each component ranging from 1 to some positive integer
-* topologically sort each component
-* each component will have a total fee and weight, sort all components on the basis of their fees and weight ratio (fees/weight) in descending 
-* greedily pick the components from the largest ratio to the smallest as long as the threshold weight is not crossed 
-* when threshold is crossed try to fill in the remaining gap by smaller ratios from the end
-* and at last you will get a good enough topologically sorted block
 */
 
 

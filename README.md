@@ -24,18 +24,18 @@ let us try the knapsack approach
 in the knapsack, so we can check wheather it was included or not 
 * P<sub>i</sub> be a set of parents of ith transaction and added[] is a hashmap which tells whether an element is added in the knapsack or not
 * node(i, W<sub>curr</sub>) = <br>
-&nbsp;if basecase: <br>
-&nbsp;&nbsp;return 0; <br>
-&nbsp;allPresent = 1;<br>
-&nbsp;if(P<sub>i</sub>.empty): <br>
-&nbsp;&nbsp;return fees[i] + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added)
-&nbsp;for p in P<sub>i</sub>:<br>
-&nbsp;&nbsp;allPresent *= added[p]<br>
-&nbsp;if(allPresent):<br>
-&nbsp;&nbsp;added[i] = true;<br>
-&nbsp;&nbsp;return max{fees<sub>i</sub> + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added), node(i+1, W<sub>curr</sub>, added)}<br>
-&nbsp;else if(not allPresent):<br>
-&nbsp;&nbsp;return node(i+1, W<sub>curr</sub>, added);<br>
+&nbsp;&nbsp;if basecase: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 0; <br>
+&nbsp;&nbsp;allPresent = 1;<br>
+&nbsp;&nbsp;if(P<sub>i</sub>.empty): <br>
+&nbsp;&nbsp;&nbsp;&nbsp;return fees[i] + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added)
+&nbsp;&nbsp;for p in P<sub>i</sub>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allPresent *= added[p]<br>
+&nbsp;&nbsp;if(allPresent):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;added[i] = true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return max{fees<sub>i</sub> + node(i+1, W<sub>curr</sub> + w<sub>i</sub>, added), node(i+1, W<sub>curr</sub>, added)}<br>
+&nbsp;&nbsp;else if(not allPresent):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return node(i+1, W<sub>curr</sub>, added);<br>
 * at every recursive call added is copied to the stack 
 * we cannot memoization won't help reduce it
 * so both space and time complexity will be in the order of 2<sup>n</sup> which ain't feasible
